@@ -1,0 +1,16 @@
+{
+  "name": "node_backend",
+  "version": "1.0.0",
+  "description": "js backend in node",
+  "keywords": [
+    "javascript",
+    "backend"
+  ],
+  "license": "ISC",
+  "author": "rtiwari13",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
