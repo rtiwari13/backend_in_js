@@ -18,31 +18,33 @@ import { ApiResponse } from "../utils/ApiResponse.js";
     }
 
     // check for existing user 
-    const existedUser = User.findOne({
+    const existedUser = await User.findOne({
         $or:[{ username },{ email }]
     })
-
+    
     if(existedUser){
         throw new ApiError(409,"User with email or username already exists")
     }
-        const avtarLocalPath = req.files?.avatar[0]?.path
+    console.log(req.files.avatar)
+
+        const avatarLocalPath = req.files?.avatar[0]?.path
         const coverImageLocalPath = req.files?.coverImage[0]?.path
 
-    if(!avtarLocalPath){
-        throw new ApiError(400,"Avtar file is required")
+    if(!avatarLocalPath){
+        throw new ApiError(400,"avatar file is required")
     }
 
-    const avtar = await uploadOnCloudinary(avtarLocalPath)
+    const avatar = await uploadOnCloudinary(avatarLocalPath)
 
     const coverImage = await uploadOnCloudinary(coverImageLocalPath)
 
-    if(!avtar){
-        throw new ApiError(400,"Avtar file is required")
+    if(!avatar){
+        throw new ApiError(400,"avatar file is required")
     }
 
     const user = User.create({
         fullName,
-        avatar:avtar.url,
+        avatar:avatar.url,
         coverImage:coverImage.url ||"",
         email,
         password,
